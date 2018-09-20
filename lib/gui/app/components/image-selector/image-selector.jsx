@@ -26,7 +26,7 @@ const { Provider } = require('rendition')
 
 const shared = require('/./../../../../../lib/shared/units')
 const { StepButton, StepNameButton, StepSelection,
-  Footer, Underline, SizeText, ChangeButton } = require('./../../styled-components')
+  Footer, Underline, DetailsText, ChangeButton } = require('./../../styled-components')
 
 class SelectImageButton extends React.Component {
 
