@@ -27,6 +27,8 @@ const { Provider, Txt } = require('rendition')
 const { StepButton, StepNameButton, StepSelection,
   DetailsText, ChangeButton } = require('./../../styled-components')
 
+const DetailsModal = require('./../details-modal/details-modal')
+
 class DriveSelectorButton extends React.PureComponent {
 
   allDevicesFooter() {
@@ -35,6 +37,14 @@ class DriveSelectorButton extends React.PureComponent {
         { middleEllipsis(device.description, 14) }
       </Txt>
     )
+  }
+
+  selectedDevicesDetails() {
+    let details = ''
+    this.props.selectedDevices.forEach(function(device){
+      details += device.description + '(' + device.displayName + ') \r'
+    })
+    return details
   }
 
   render() {
@@ -47,6 +57,7 @@ class DriveSelectorButton extends React.PureComponent {
                 disabled={this.props.disabled}
                 tooltip={this.props.driveListLabel}
                 warning={!this.props.howManyDeviceSelected}
+                onClick={() => this.setState({show: true})}
               >
                 { middleEllipsis(this.props.drivesTitle, 20) }
                 { this.props.hasCompatibilityStatus(this.props.drives(), this.props.image()) &&
@@ -75,6 +86,14 @@ class DriveSelectorButton extends React.PureComponent {
               }
             </DetailsText>
           </StepSelection>
+          {this.state.show ?
+            <DetailsModal
+              title={'Selected Drivers'}
+              details={this.selectedDevicesDetails()}
+              callback={() => this.setState({ show: false })}
+            />
+          : null
+          }
         </Provider>
       )
     }
