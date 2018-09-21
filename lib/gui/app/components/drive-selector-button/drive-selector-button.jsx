@@ -40,9 +40,9 @@ class DriveSelectorButton extends React.PureComponent {
   }
 
   selectedDevicesDetails() {
-    let details = ''
+    let details = []
     this.props.selectedDevices.forEach(function(device){
-      details += device.description + '(' + device.displayName + ') \r'
+      details.push(device.description + '(' + device.displayName + ')')
     })
     return details
   }
