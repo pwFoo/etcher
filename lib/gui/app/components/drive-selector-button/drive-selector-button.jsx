@@ -31,6 +31,14 @@ const DetailsModal = require('./../details-modal/details-modal')
 
 class DriveSelectorButton extends React.PureComponent {
 
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      show: false
+    }
+  }
+
   allDevicesFooter() {
     return this.props.selectedDevices.map((device) =>
       <Txt key={device.device} tooltip={device.description + '(' + device.displayName + ')'}>
@@ -40,11 +48,9 @@ class DriveSelectorButton extends React.PureComponent {
   }
 
   selectedDevicesDetails() {
-    let details = []
-    this.props.selectedDevices.forEach(function(device){
-      details.push(device.description + '(' + device.displayName + ')')
-    })
-    return details
+    return this.props.selectedDevices.map((device) =>
+      (device.description + '(' + device.displayName + ')')
+    )
   }
 
   render() {

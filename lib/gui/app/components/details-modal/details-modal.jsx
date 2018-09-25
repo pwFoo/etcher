@@ -63,15 +63,11 @@ const CloseButton = styled(Button) `
 class DetailsModal extends React.Component {
 
   renderDetails() {
-    let lines = []
-    this.props.details.forEach(function(line){
-      lines.push(
-        <Txt key={line}>
-          { line }
-        </Txt>
-      )
-    })
-    return lines
+    return this.props.details.map((line) =>
+      <Txt key={line}>
+        { line }
+      </Txt>
+    )
   }
 
   render() {
