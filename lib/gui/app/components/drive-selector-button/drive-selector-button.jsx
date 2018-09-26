@@ -29,19 +29,14 @@ const { StepButton, StepNameButton, StepSelection,
 
 class DriveSelectorButton extends React.PureComponent {
 
-  allDevices() {
-    let devices = []
+  allDevicesFooter() {
     if (this.props.howManyDeviceSelected > 1) {
-      this.props.selectedDevices.forEach(function(device){
-        let tooltip = device.description + '(' + device.displayName + ')'
-        devices.push(
-          <Txt key={device.device} tooltip={tooltip}>
-            { middleEllipsis(device.description, 14) }
-          </Txt>
-        )
-      })
+      return this.props.selectedDevices.map((device) =>
+        <Txt key={device.device} tooltip={device.description + '(' + device.displayName + ')'}>
+          { middleEllipsis(device.description, 14) }
+        </Txt>
+       )
     }
-    return devices
   }
 
   render() {
@@ -79,7 +74,7 @@ class DriveSelectorButton extends React.PureComponent {
               </ChangeButton>
             }
             <DetailsText>
-              {this.allDevices()}
+              {this.allDevicesFooter()}
             </DetailsText>
           </StepSelection>
         </Provider>
