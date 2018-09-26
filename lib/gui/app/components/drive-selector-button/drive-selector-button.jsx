@@ -22,6 +22,7 @@ const propTypes = require('prop-types')
 const Color = require('color')
 
 const middleEllipsis = require('./../../utils/middle-ellipsis')
+const shared = require('/./../../../../../lib/shared/units')
 
 const { Provider, Txt } = require('rendition')
 const { StepButton, StepNameButton, StepSelection,
@@ -49,7 +50,11 @@ class DriveSelectorButton extends React.PureComponent {
 
   selectedDevicesDetails() {
     return this.props.selectedDevices.map((device) =>
-      (device.description + '(' + device.displayName + ')')
+      ({
+        name: device.description || device.displayName,
+        size: shared.bytesToClosestUnit(device.size),
+        path: device.device
+      })
     )
   }
 
@@ -94,7 +99,7 @@ class DriveSelectorButton extends React.PureComponent {
           </StepSelection>
           {this.state.show ?
             <DetailsModal
-              title={'Selected Drivers'}
+              title={'DRIVERS DETAILS'}
               details={this.selectedDevicesDetails()}
               callback={() => this.setState({ show: false })}
             />

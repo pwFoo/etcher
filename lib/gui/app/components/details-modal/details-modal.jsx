@@ -28,34 +28,28 @@ const shared = require('/./../../../../../lib/shared/units')
 const { colors } = require('./../../theme')
 
 const ModalHeader = styled(Flex) `
-  text-align: left;
+  justify-content: space-between;
   align-items: baseline;
   font-size: 12px;
   color: ${colors.light.soft.foreground};
+  font-weight: bold;
   padding: 11px 20px;
   border-bottom: 1.5px solid ${colors.light.soft.background};
 `
-
-const ModalTitle = styled(Txt) `
-  flex-grow: 1;
-`
-
-const ModalBody = styled(Box) `
+ const ModalBody = styled(Box) `
   padding: 20px;
   max-height: 250px;
   word-wrap: break-word;
-  color: ${colors.light.foreground};
-  background-color: ${colors.light.soft.background};
-  margin: -35px 15px -35px 15px;
+  text-align: left;
+   margin: -35px 15px -45px 15px;
 `
-
-const CloseButton = styled(Button) `
+ const CloseButton = styled(Button) `
   font-size: 19.5px;
   font-weight: bold;
   line-height: 1
   color: ${colors.light.soft.foreground};;
   cursor: pointer;
-  &:hover {
+   &:hover {
     color: ${colors.dark.background};
   }
 `
@@ -64,9 +58,10 @@ class DetailsModal extends React.Component {
 
   renderDetails() {
     return this.props.details.map((line) =>
-      <Txt key={line}>
-        { line }
-      </Txt>
+    <Box key={line.path} mb='10px'>
+      <Txt bold color={colors.light.foreground}> {line.name} - {line.size} </Txt>
+      <Txt bold color={colors.default.foreground}> {line.path} </Txt>
+    </Box>
     )
   }
 
@@ -74,15 +69,15 @@ class DetailsModal extends React.Component {
     return (
       <Provider>
         <Modal
+          w='400px'
           style={{padding: 0}}
           titleElement={
             <React.Fragment>
               <ModalHeader>
-                <ModalTitle>{this.props.title}</ModalTitle>
+                <Txt>{this.props.title}</Txt>
                 <CloseButton
                   plaintext
                   onClick={this.props.callback}
-                  align='left'
                 >
                 &times;
                 </CloseButton>
@@ -90,9 +85,6 @@ class DetailsModal extends React.Component {
             </React.Fragment>
           }
           primaryButtonProps={{
-  						position: 'absolute',
-              top: 0,
-              right: 0,
               plaintext: true,
               primary: false
   				}}
