@@ -73,11 +73,11 @@ class SelectImageButton extends React.Component {
             <DetailsModal
               title={'IMAGE DETAILS'}
               details={
-                {
+                [{
                   path: this.props.imagePath,
                   name: this.props.imageName || this.props.imageBasename,
                   size: imageSize
-                }
+                }]
               }
               callback={() => this.setState({ show: false })}
             />

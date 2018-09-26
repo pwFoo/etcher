@@ -43,7 +43,7 @@ const ModalBody = styled(Box) `
   word-wrap: break-word;
   text-align: left;
 
-  margin: -35px 15px -35px 15px;
+  margin: -35px 15px -45px 15px;
 `
 
 const CloseButton = styled(Button) `
@@ -58,44 +58,55 @@ const CloseButton = styled(Button) `
   }
 `
 
-const DetailsModal = props => {
-  return (
-    <Provider>
-      <Modal
-        w='400px'
-        style={{padding: 0}}
-        titleElement={
-          <React.Fragment>
-            <ModalHeader>
-              <Txt>{props.title}</Txt>
-              <CloseButton
-                plaintext
-                onClick={props.callback}
-              >
-              &times;
-              </CloseButton>
-            </ModalHeader>
-          </React.Fragment>
-        }
-        primaryButtonProps={{
-            plaintext: true,
-            primary: false
-				}}
-        action=' '
-        done={props.callback}
-      >
+class DetailsModal extends React.Component {
+
+  renderDetails() {
+    return this.props.details.map((line) =>
+      <Box key={line.path} mb='10px'>
+        <Txt bold color={colors.light.foreground}> {line.name} - {line.size} </Txt>
+        <Txt bold color={colors.default.foreground}> {line.path} </Txt>
+      </Box>
+    )
+  }
+
+  render(){
+    return (
+      <Provider>
+        <Modal
+          w='400px'
+          style={{padding: 0}}
+          titleElement={
+            <React.Fragment>
+              <ModalHeader>
+                <Txt>{this.props.title}</Txt>
+                <CloseButton
+                  plaintext
+                  onClick={this.props.callback}
+                >
+                &times;
+                </CloseButton>
+              </ModalHeader>
+            </React.Fragment>
+          }
+          primaryButtonProps={{
+              plaintext: true,
+              primary: false
+  				}}
+          action=' '
+          done={this.props.callback}
+        >
           <ModalBody>
-            <Txt bold color={colors.light.foreground}> {props.details.name} - {props.details.size} </Txt>
-            <Txt bold color={colors.default.foreground}> {props.details.path} </Txt>
+            {this.renderDetails()}
           </ModalBody>
-      </Modal>
-    </Provider>
-  )
+        </Modal>
+      </Provider>
+    )
+  }
 }
 
 DetailsModal.propTypes = {
   title: propTypes.string,
-  details: propTypes.object,
+  details: propTypes.array,
   callback: propTypes.func
 }
 
