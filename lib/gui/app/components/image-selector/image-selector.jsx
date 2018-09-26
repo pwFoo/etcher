@@ -57,17 +57,19 @@ class SelectImageButton extends React.Component {
               {shared.bytesToClosestUnit(this.props.imageSize)}
             </DetailsText>
             { this.props.flashing ?
-              null
-              :
-              <ChangeButton
-                plaintext
-                onClick={this.props.reselectImage}
-              >
-                Change
-              </ChangeButton>
+              null :
+              (
+                <ChangeButton
+                  plaintext
+                  onClick={this.props.reselectImage}
+                >
+                  Change
+                </ChangeButton>
+              )
             }
           </StepSelection>
           {this.state.show ?
+          (
             <DetailsModal
               title={'IMAGE DETAILS'}
               details={
@@ -79,6 +81,7 @@ class SelectImageButton extends React.Component {
               }
               callback={() => this.setState({ show: false })}
             />
+          )
           : null
           }
         </Provider>
