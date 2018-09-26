@@ -89,7 +89,6 @@ class DetailsModal extends React.Component {
               primary: false
   				}}
           action=' '
-          done={this.props.callback}
         >
             <ModalBody>
               {this.renderDetails()}
