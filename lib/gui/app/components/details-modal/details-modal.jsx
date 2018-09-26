@@ -41,7 +41,7 @@ const ModalHeader = styled(Flex) `
   max-height: 250px;
   word-wrap: break-word;
   text-align: left;
-   margin: -35px 15px -45px 15px;
+  margin: -35px 15px -45px 15px;
 `
  const CloseButton = styled(Button) `
   font-size: 19.5px;
