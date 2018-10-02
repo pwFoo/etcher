@@ -68,7 +68,7 @@ class DriveSelectorButton extends React.PureComponent {
                 disabled={this.props.disabled}
                 tooltip={this.props.driveListLabel}
                 warning={!this.props.howManyDeviceSelected}
-                onClick={() => this.setState({show: true})}
+                onClick={() => this.setState({showDetailsModal: true})}
               >
                 { middleEllipsis(this.props.drivesTitle, 20) }
                 { this.props.hasCompatibilityStatus(this.props.drives(), this.props.image()) &&
@@ -97,11 +97,11 @@ class DriveSelectorButton extends React.PureComponent {
               }
             </DetailsText>
           </StepSelection>
-          {this.state.show ?
+          {this.state.showDetailsModal ?
             <DetailsModal
               title={ this.props.selectedDevices.length > 1 ? 'DRIVERS DETAILS' : 'DRIVER DETAILS'}
               details={this.selectedDevicesDetails()}
-              callback={() => this.setState({ show: false })}
+              callback={() => this.setState({ showDetailsModal: false })}
             />
           : null
           }
