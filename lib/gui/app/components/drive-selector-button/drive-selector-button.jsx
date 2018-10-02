@@ -30,13 +30,11 @@ const { StepButton, StepNameButton, StepSelection,
 class DriveSelectorButton extends React.PureComponent {
 
   allDevicesFooter() {
-    if (this.props.howManyDeviceSelected > 1) {
-      return this.props.selectedDevices.map((device) =>
-        <Txt key={device.device} tooltip={device.description + '(' + device.displayName + ')'}>
-          { middleEllipsis(device.description, 14) }
-        </Txt>
-       )
-    }
+    return this.props.selectedDevices.map((device) =>
+      <Txt key={device.device} tooltip={device.description + '(' + device.displayName + ')'}>
+        { middleEllipsis(device.description, 14) }
+      </Txt>
+    )
   }
 
   render() {
@@ -51,21 +49,18 @@ class DriveSelectorButton extends React.PureComponent {
                 warning={!this.props.howManyDeviceSelected}
               >
                 { middleEllipsis(this.props.drivesTitle, 20) }
-                { this.props.hasCompatibilityStatus(this.props.drives(), this.props.image()) ?
+                { this.props.hasCompatibilityStatus(this.props.drives(), this.props.image()) &&
                   <Txt.span className='glyphicon glyphicon-exclamation-sign'
                     ml='10px'
                     tooltip={this.props.getCompatibilityStatuses(this.props.drives(),this.props.image())[0].message}
                   />
-                : null
                 }
               </StepNameButton>
 
             <DetailsText>
               {this.props.driveSize}
             </DetailsText>
-            { this.props.flashing || !this.props.shouldShowDrivesButton ?
-              null
-              :
+            { !this.props.flashing && this.props.shouldShowDrivesButton &&
               <ChangeButton
                 plaintext
                 onClick={this.props.reselectDrive}
@@ -74,7 +69,10 @@ class DriveSelectorButton extends React.PureComponent {
               </ChangeButton>
             }
             <DetailsText>
-              {this.allDevicesFooter()}
+              {
+                this.props.selectedDevices.length > 1 &&
+                this.allDevicesFooter()
+              }
             </DetailsText>
           </StepSelection>
         </Provider>
@@ -89,7 +87,7 @@ class DriveSelectorButton extends React.PureComponent {
               disabled={this.props.disabled}
               onClick={this.props.openDriveSelector}
             >
-              Select drive react
+              Select drive
             </StepButton>
           </StepSelection>
         </Provider>
