@@ -36,12 +36,12 @@ class DriveSelectorButton extends React.PureComponent {
     super(props)
 
     this.state = {
-      show: false
+      showDetailsModal: false,
     }
   }
 
   allDevicesFooter() {
-    return this.props.selectedDevices.map((device) =>
+    return this.props.getSelectedDrives().map((device) =>
       <Txt key={device.device} tooltip={device.description + '(' + device.displayName + ')'}>
         { middleEllipsis(device.description, 14) }
       </Txt>

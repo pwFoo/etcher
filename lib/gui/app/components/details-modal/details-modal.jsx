@@ -19,49 +19,20 @@
 const React = require('react')
 const ReactDOM = require('react-dom')
 const propTypes = require('prop-types')
-const styled = require('styled-components').default
-const { Provider, Button, Modal, Flex, Txt, Box } = require('rendition')
+const { Provider, Modal, Txt, Box } = require('rendition')
 
-const middleEllipsis = require('./../../utils/middle-ellipsis')
-
-const shared = require('/./../../../../../lib/shared/units')
+const { ModalHeader, CloseButton, ModalBody} = require('./modal-styles')
 const { colors } = require('./../../theme')
-
-const ModalHeader = styled(Flex) `
-  justify-content: space-between;
-  align-items: baseline;
-  font-size: 12px;
-  color: ${colors.light.soft.foreground};
-  font-weight: bold;
-  padding: 11px 20px;
-  border-bottom: 1.5px solid ${colors.light.soft.background};
-`
- const ModalBody = styled(Box) `
-  padding: 20px;
-  max-height: 250px;
-  word-wrap: break-word;
-  text-align: left;
-  margin: -35px 15px -45px 15px;
-`
- const CloseButton = styled(Button) `
-  font-size: 19.5px;
-  font-weight: bold;
-  line-height: 1
-  color: ${colors.light.soft.foreground};;
-  cursor: pointer;
-   &:hover {
-    color: ${colors.dark.background};
-  }
-`
 
 class DetailsModal extends React.Component {
 
   renderDetails() {
+    console.log(this.props.details)
     return this.props.details.map((line) =>
-    <Box key={line.path} mb='10px'>
-      <Txt bold color={colors.light.foreground}> {line.name} - {line.size} </Txt>
-      <Txt bold color={colors.default.foreground}> {line.path} </Txt>
-    </Box>
+      <Box key={line.path} mb='10px'>
+        <Txt bold color={colors.light.foreground} align='left'> {line.name} - {line.size} </Txt>
+        <Txt bold color={colors.default.foreground} align='left'> {line.path} </Txt>
+      </Box>
     )
   }
 
@@ -69,8 +40,8 @@ class DetailsModal extends React.Component {
     return (
       <Provider>
         <Modal
-          w='400px'
-          style={{padding: 0}}
+          style={{padding: '0 10px 15px 15px'}}
+          width='400px'
           titleElement={
             <React.Fragment>
               <ModalHeader>
@@ -84,11 +55,7 @@ class DetailsModal extends React.Component {
               </ModalHeader>
             </React.Fragment>
           }
-          primaryButtonProps={{
-              plaintext: true,
-              primary: false
-  				}}
-          action=' '
+          done={this.props.callback}
         >
             <ModalBody>
               {this.renderDetails()}
@@ -105,4 +72,4 @@ DetailsModal.propTypes = {
   callback: propTypes.func
 }
 
-module.exports = DetailsModal
+exports.DetailsModal = DetailsModal
