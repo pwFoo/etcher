@@ -88,11 +88,6 @@ class DetailsModal extends React.Component {
               </ModalHeader>
             </React.Fragment>
           }
-          primaryButtonProps={{
-              plaintext: true,
-              primary: false
-  				}}
-          action=' '
         >
           <ModalBody>
             {this.renderDetails()}

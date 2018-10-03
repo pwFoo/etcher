@@ -22,7 +22,7 @@ const propTypes = require('prop-types')
 
 const middleEllipsis = require('./../../utils/middle-ellipsis')
 
-const { Provider, Button, Modal } = require('rendition')
+const { Provider } = require('rendition')
 
 const shared = require('/./../../../../../lib/shared/units')
 const { StepButton, StepNameButton, StepSelection,
@@ -36,7 +36,7 @@ class SelectImageButton extends React.Component {
     super(props)
 
     this.state = {
-      show: false
+      showImageDetails: false
     }
   }
 
@@ -48,7 +48,7 @@ class SelectImageButton extends React.Component {
           <StepSelection>
             <StepNameButton
               plaintext
-              onClick={() => this.setState({ show: true })}
+              onClick={() => this.setState({ showImageDetails: true })}
               tooltip={this.props.imageBasename}
             >
               {middleEllipsis(this.props.imageName || this.props.imageBasename , 20)}
@@ -56,20 +56,16 @@ class SelectImageButton extends React.Component {
             <DetailsText>
               {shared.bytesToClosestUnit(this.props.imageSize)}
             </DetailsText>
-            { this.props.flashing ?
-              null :
-              (
-                <ChangeButton
-                  plaintext
-                  onClick={this.props.reselectImage}
-                >
-                  Change
-                </ChangeButton>
-              )
+            { this.props.flashing &&
+              <ChangeButton
+                plaintext
+                onClick={this.props.reselectImage}
+              >
+                Change
+              </ChangeButton>
             }
           </StepSelection>
-          {this.state.show ?
-          (
+          {this.state.showImageDetails &&
             <DetailsModal
               title={'IMAGE DETAILS'}
               details={
@@ -79,10 +75,8 @@ class SelectImageButton extends React.Component {
                   size: imageSize
                 }]
               }
-              callback={() => this.setState({ show: false })}
+              callback={() => this.setState({ showImageDetails: false })}
             />
-          )
-          : null
           }
         </Provider>
       )
